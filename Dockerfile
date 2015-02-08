@@ -11,5 +11,3 @@ RUN mv grafana-1.9.1/* /var/www
 ADD config.js /var/www/config.js
 
 EXPOSE 80
-CMD /usr/sbin/apachectl -D FOREGROUND
-
