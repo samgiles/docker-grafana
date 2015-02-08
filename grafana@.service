@@ -8,7 +8,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill grafana%i
 ExecStartPre=-/usr/bin/docker rm grafana%i
 ExecStartPre=/usr/bin/docker pull samgiles/grafana
-ExecStart=/usr/bin/docker run -d --name grafana%i -p 8000:80 samgiles/grafana /usr/sbin/apachectl -D FOREGROUND
+ExecStart=/usr/bin/docker run --name grafana%i -p 8000:80 samgiles/grafana /usr/sbin/apachectl -D FOREGROUND
 ExecStop=/usr/bin/docker stop grafana%i
 
 [Install]
