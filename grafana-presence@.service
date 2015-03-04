@@ -1,0 +1,16 @@
+[Unit]
+Description=Register Grafana with vulcand
+BindsTo=grafana@%i.service
+
+[Service]
+EnvironmentFile=/etc/environment
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "\
+/bin/etcdctl set /vulcand/backends/grafana/backend '{"Type": "http"}';  \
+/bin/etcdctl set /vulcand/backends/grafana/servers/grafana@%i "{\"URL\": \"http://$COREOS_PUBLIC_IPV4:8000\" }"; \
+/bin/etcdctl set /vulcand/frontends/grafana/frontend '{"Type":"http", "BackendId": "grafana", "Route": "Host(`grafana.local`) && PathRegexp(`\/.*`)" }'; \
+"
+ExecStop=/bin/sh -c "/bin/etcdctl rm /vulcand/backends/grafana/servers/grafana@%i"
+
+[X-Fleet]
+X-ConditionMachineOf=grafana@%i.service

@@ -15,4 +15,4 @@ ExecStop=/usr/bin/docker stop grafana%i
 WantedBy=multi-user.target
 
 [X-Fleet]
-Conflicts=grafana*
+Conflicts=grafana@*
